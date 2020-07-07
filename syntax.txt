@@ -1,0 +1,74 @@
+Math Basic Language
+
+
+Symbols like functions, labels and variable names are all lowercase:
+    x
+    y
+    counter
+    sum
+    
+    
+Keywords are all caps:
+    Control keywords:
+        IF ... DO ... ELSE IF ... ELSE ... END
+        FOR ... IN ... DO ... END
+        WHILE ... DO ... END
+        DO ... WHILE ... END
+        GOTO ...
+        ONCE DO ... END
+        LAST DO ... END
+    Other:
+        RETURN 
+        
+    IO keywords:
+        IN
+        OUT
+        ERROUT
+        ARGS
+        
+    Logical keywords:
+        AND
+        OR
+        XOR
+        NOT
+        NAND
+        NOR
+        
+    Container keywords:
+        container FRONT
+        container BACK
+        container VALUE
+        container PREPEND var
+        container APPEND var
+        container INSERT var
+        container DELETE VALUE var
+        container DELETE INDEX var
+        container DELETE FRONT
+        container DELETE BACK
+        var IN container
+        USE
+        NEXT
+        CURRENT
+        PRIOR
+        RESET
+        
+    
+        
+Types starts with capital letter and continue with lowercase or numbers:
+    Integer
+    Number
+    Text
+    In
+    Out
+    Errout
+    
+Fancy types can hold other types:
+    List Integer
+    Integers (list of Integers)
+    Book Number (Hashtable)
+    Tree Text
+    
+
+    
+
+    
