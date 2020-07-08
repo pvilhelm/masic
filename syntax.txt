@@ -15,10 +15,59 @@ Keywords are all caps:
         WHILE ... DO ... END
         DO ... WHILE ... END
         GOTO ...
-        ONCE DO ... END
+        FIRST DO ... END
         LAST DO ... END
+        USE ... DO ... END
+        LOOP ... END
+        
     Other:
         RETURN var
+        BREAK
+        REDO
+        SKIP
+        GLOBAL
+        STATIC
+        CALL var (call code with local parameters)
+        
+    Modifiers:
+        $ (don't execute)
+       
+    Ranges:
+        k_1 : k_i - k_i-1 : k_n
+        k_1 : k_n (step is 1)
+    Intervals:
+        (k_min ... k_max)
+        [k_min ... k_max]
+        [k_min ... k_max)
+        (k_min ... k_max]
+        
+    Macro and templates:
+        %
+        one letter type names are templates
+        
+        
+    Lists:
+        (var_1, var_2, ..., var_n)
+        (type_1, type_2, ..., type_n)
+        
+        
+    Variable and type declarations:
+        TYPE alias = type
+        UNIT name
+        UNIT alias = unit-expression
+        type name 
+        RECORD name BEGIN var-definition-list END
+        TYPES type-list
+        
+    Functions:
+        FUNCTION name
+        INPUT var-list
+        OUTPUT var-list
+        REQUIRE
+        ASSURE INPUT ... OUTPUT ...
+        BEGIN ... END
+        
+        
         
     IO keywords:
         IN
@@ -34,41 +83,46 @@ Keywords are all caps:
         NAND
         NOR
         BITAND
-	BITOR
-	BITXOR
-	BITNAND
-	BITNOR
-	BITNOT
+        BITOR
+        BITXOR
+        BITNAND
+        BITNOR
+        BITNOT
 	
     Container keywords:
     	COPY container
         container FIRST
         container LAST
         container 
-        container >> var (pops back)
-	var << container (pops front)
+        container >> var (POP LAST, NEXT)
+        var << container (pops first)
         var >> container (prepends)
-	container << var (appends)
-	container INSERT VALUE var KEY var
+        container << var (appends)
+        
+        container INSERT VALUE var KEY var
         container INSERT VALUE var INDEX var
         container DELETE VALUE var
-	container DELETE KEY var
+        container DELETE KEY var
         container DELETE INDEX var
         container DELETE FIRST
         container DELETE LAST
-	container DELETE
-	container FIND (LAST | FIRST) var
-	container SORT (ASC | DESC | LENGTH | $expr)
-	container UNIQUE
+        container DELETE
+        container FIND (LAST | FIRST) var
+        container SORT (ASC | DESC | LENGTH | $expr)
+        container UNIQUE
         var IN container
-        bookmark USE container (returns bookmark)
-        (bookmark) NEXT (ELSE GOTO) 
-        (bookmark) PRIOR (ELSE GOTO)
-        (bookmark) RESET
-        (bookmark) POP (ELSE GOTO)
-	(bookmark) PUSH
-	(bookmark) END
+        
+        
+        marker USE container (returns marker)
+        (marker) NEXT (ELSE GOTO) 
+        (marker) PRIOR (ELSE GOTO)
+        (marker) RESET
+        (marker) POP (ELSE GOTO)
+        (marker) PUSH
+        (marker) END
     
+    Streaming:
+        IN >> i >> ":" >> 
         
 Types starts with capital letter and continue with lowercase or numbers:
     Integer
@@ -85,23 +139,43 @@ Fancy types can hold other types:
     Tree Text
 
 Operators:
+    Fancy:
+        |expr| (absolute value)
+        ||expr|| (normalized value)
+        
 	Binary:
 		var + var
-		var * var
+        var * var
+        var ANGLE var
+		var CROSSPRODUCT var (cross product)
+        var DOTPRODUCT var (dot product)
 		var / var
+        var \ var
 		var - var
-		var // var (remainder)
+		var // var (integer division)
+        var % var (remainder)
 		=
-		<<
-		>>
-		<<<
-		>>>
 		^
-	Undary:
+	Unary:
 		-
 		+
 		. operator (memberwise operator)
 
+Special variables:
+    e_x (unit vectors>
+    e_y
+    e_z
+    pi 
+    e
     
-
+String manipulation:
+    STRING var (convert the variable to a string representation of it)
+    "{var} is a {fnc(var)}" (The value of the expression in curly brackets are inserted into the string)
+    "{%f.3}" (printf)
+    "abc" + "def" (concat)
+    
+    
+    
+    
+    
     
