@@ -18,7 +18,7 @@ Keywords are all caps:
         ONCE DO ... END
         LAST DO ... END
     Other:
-        RETURN 
+        RETURN var
         
     IO keywords:
         IN
@@ -33,25 +33,41 @@ Keywords are all caps:
         NOT
         NAND
         NOR
-        
+        BITAND
+	BITOR
+	BITXOR
+	BITNAND
+	BITNOR
+	BITNOT
+	
     Container keywords:
-        container FRONT
-        container BACK
-        container VALUE
-        container PREPEND var
-        container APPEND var
-        container INSERT var
+    	COPY container
+        container FIRST
+        container LAST
+        container 
+        container >> var (pops back)
+	var << container (pops front)
+        var >> container (prepends)
+	container << var (appends)
+	container INSERT VALUE var KEY var
+        container INSERT VALUE var INDEX var
         container DELETE VALUE var
+	container DELETE KEY var
         container DELETE INDEX var
-        container DELETE FRONT
-        container DELETE BACK
+        container DELETE FIRST
+        container DELETE LAST
+	container DELETE
+	container FIND (LAST | FIRST) var
+	container SORT (ASC | DESC | LENGTH | $expr)
+	container UNIQUE
         var IN container
-        USE
-        NEXT
-        CURRENT
-        PRIOR
-        RESET
-        
+        bookmark USE container (returns bookmark)
+        (bookmark) NEXT (ELSE GOTO) 
+        (bookmark) PRIOR (ELSE GOTO)
+        (bookmark) RESET
+        (bookmark) POP (ELSE GOTO)
+	(bookmark) PUSH
+	(bookmark) END
     
         
 Types starts with capital letter and continue with lowercase or numbers:
@@ -67,7 +83,24 @@ Fancy types can hold other types:
     Integers (list of Integers)
     Book Number (Hashtable)
     Tree Text
-    
+
+Operators:
+	Binary:
+		var + var
+		var * var
+		var / var
+		var - var
+		var // var (remainder)
+		=
+		<<
+		>>
+		<<<
+		>>>
+		^
+	Undary:
+		-
+		+
+		. operator (memberwise operator)
 
     
 
