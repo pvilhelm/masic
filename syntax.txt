@@ -10,7 +10,7 @@ Symbols like functions, labels and variable names are all lowercase:
     
 Keywords are all caps:
     Control keywords:
-        IF ... DO ... ELSE IF ... ELSE ... END
+        IF ... DO ... ELSE IF ... DO ... ELSE ... END
         FOR ... IN ... DO ... END
         WHILE ... DO ... END
         DO ... WHILE ... END
@@ -30,7 +30,7 @@ Keywords are all caps:
         CALL var (call code with local parameters)
         
     Modifiers:
-        $ (don't execute)
+        $ (don't execute, e.g. a reference variable)
        
     Ranges:
         k_1 : k_i - k_i-1 : k_n
@@ -49,7 +49,8 @@ Keywords are all caps:
     Lists:
         (var_1, var_2, ..., var_n)
         (type_1, type_2, ..., type_n)
-        
+    Books:
+	((key_1, var_1), ...
         
     Variable and type declarations:
         TYPE alias = type
@@ -98,7 +99,9 @@ Keywords are all caps:
         var << container (pops first)
         var >> container (prepends)
         container << var (appends)
-        
+
+	container >>> var (creates an internal marker and POPs from it)
+
         container INSERT VALUE var KEY var
         container INSERT VALUE var INDEX var
         container DELETE VALUE var
@@ -114,20 +117,21 @@ Keywords are all caps:
         
         
         marker USE container (returns marker)
-        (marker) NEXT (ELSE GOTO) 
-        (marker) PRIOR (ELSE GOTO)
+        (marker) NEXT (ELSE ...) 
+        (marker) PRIOR (ELSE ...)
         (marker) RESET
-        (marker) POP (ELSE GOTO)
+        (marker) POP (ELSE ...)
         (marker) PUSH
         (marker) END
     
     Streaming:
-        IN >> i >> ":" >> 
+        IN >> i >> ":" >> str >> ENDLINE
+	OUT << str << " " << i << ENDLINE
         
 Types starts with capital letter and continue with lowercase or numbers:
     Integer
     Number
-    Text
+    String
     In
     Out
     Errout
@@ -137,6 +141,10 @@ Fancy types can hold other types:
     Integers (list of Integers)
     Book Number (Hashtable)
     Tree Text
+    Matrix Number
+    Matrix Integer
+    Vector Integer
+
 
 Operators:
     Fancy:
@@ -144,22 +152,22 @@ Operators:
         ||expr|| (normalized value)
         
 	Binary:
-		var + var
+	var + var
         var * var
         var ANGLE var
-		var CROSSPRODUCT var (cross product)
+	var CROSSPRODUCT var (cross product)
         var DOTPRODUCT var (dot product)
-		var / var
+	var / var
         var \ var
-		var - var
-		var // var (integer division)
+	var - var
+	var // var (integer division)
         var % var (remainder)
-		=
-		^
+	=
+	^
 	Unary:
-		-
-		+
-		. operator (memberwise operator)
+	-
+	+
+	. operator (memberwise operator)
 
 Special variables:
     e_x (unit vectors>
