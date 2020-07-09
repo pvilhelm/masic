@@ -14,6 +14,7 @@ Keywords are all caps:
         FOR ... IN ... DO ... END
         WHILE ... DO ... END
         DO ... WHILE ... END
+        DO ... END (block of code)
         GOTO ...
         FIRST DO ... END
         LAST DO ... END
@@ -28,6 +29,9 @@ Keywords are all caps:
         GLOBAL
         STATIC
         CALL var (call code with local parameters)
+        SIGNAL var-list
+        LISTEN
+        EXIT var
         
     Modifiers:
         $ (don't execute, e.g. a reference variable)
@@ -100,7 +104,7 @@ Keywords are all caps:
         var >> container (prepends)
         container << var (appends)
 
-	container >>> var (creates an internal marker and POPs from it)
+        container >>> var (creates an internal marker and POPs from it)
 
         container INSERT VALUE var KEY var
         container INSERT VALUE var INDEX var
@@ -113,7 +117,7 @@ Keywords are all caps:
         container FIND (LAST | FIRST) var
         container SORT (ASC | DESC | LENGTH | $expr)
         container UNIQUE
-        var IN container
+        var IS_IN container
         
         
         marker USE container (returns marker)
@@ -126,7 +130,34 @@ Keywords are all caps:
     
     Streaming:
         IN >> i >> ":" >> str >> ENDLINE
-	OUT << str << " " << i << ENDLINE
+        OUT << str << " " << i << ENDLINE
+        # Match line
+        IN >> Line l
+        # Match word
+        IN >> Word w1 >> Word w2 
+        
+        
+        WHILE IN DO
+            IN >>> "cat" >> WS >> Str $s >> WS >> Num $age
+                >> DO OUT << "It is a cat. The race is {s}. It is {age} years old." << ENDLINE END
+                >> SKIP
+            IN >>> "dog" >> WS >> Str s >> WS >> Num weight
+                >> DO OUT << "A dog. Its name is {s} and its weight is {weight}\n" END
+                >> SKIP
+            IN >>> Str $s IS_IN ("duck", "goose", "chicken")
+                >> Num $n >> WS
+                >> Bool $can_fly
+                >> DO OUT << "The {s} {can_fly ? "can fly" : "can't fly"}" << ENDLINE END 
+                >> SKIP
+            SIGNAL "File has inproper syntax"
+        END
+        
+    Math:
+    
+        IN >> Num a >> Num b
+        OUT << "Sum:" << a + b
+        
+            
         
 Types starts with capital letter and continue with lowercase or numbers:
     Integer
