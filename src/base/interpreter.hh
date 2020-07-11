@@ -4,7 +4,9 @@
 #include <string>
 
 namespace interpreter {
-  using sp = std::shared_ptr;
+
+  template <typename T>
+  using sp = std::shared_ptr<T>;
   
   class expression;
   class statement;
@@ -19,26 +21,50 @@ namespace interpreter {
   class userspace;
 
   class machine;
+  class value {
+  public:
+    value() = 0;
+    virtual ~value() = 0;
+    /* object is not copyable. */
+    value(const value&) = delete;
+    value &operator=(const value&) = delete;
+    
+    bool virtual is_primitive() const = 0;
+    bool virtual is_integer() const = 0;
+    bool virtual is_float() const = 0;
+    std::string to_string() const = 0;
+  };
   
   class symbol {
   public:
-    std::string name;
+    symbol() = default;
+    /* object is not copyable. */
+    symbol(const symbol&) = delete;
+    symbol& operator=(const symbol&) = delete;
+    
+    std::string name;   
 
     value virtual &get_value() const = 0;
     void virtual set_value(value &v) = 0;
   private:
+    sp<value> sp_value;
     /* TODO: Pekare till value */
     /* TODO: Pekare till scope. */
   };
 
   class scope {
   public:
+    scope(sp<scope> parent_scope) : parent_scope(parent_scope) {};
+    /* object is not copyable. */
+    scope(const scope&) = delete;
+    scope& operator=(const scope&) = delete;
+    
     sp<symbol> find_symbol(std::string name);
     void push_symbol(sp<symbol> symbol);
-    sp<symbol> find_symbol_top_scope(std::string name);
+    sp<symbol> find_symbol_inner_scope(std::string name);
   private:
-    /* TODO: Pekare till förälder */
-    std::vector<sp<symbol>> v_sptr_symbols;
+    sp<scope> parent_scope;
+    std::vector<sp<symbol>> v_sp_symbols;
   };
 
   class stack {
@@ -46,18 +72,22 @@ namespace interpreter {
     sp<symbol> find_symbol_highest(std::string name);
     void push_stack(sp<symbol> sptr_symbol);
     sp<symbol> pop_stack();
-    void pop_stack(size_t n);
+    sp<symbol> pop_stack(size_t n);
     
   private:
     std::vector<sp<symbol>> v_stack;
   };
-    
+
+  class machine {
+
+  };
+  
   class userspace {
   public:
     machine machine;
     program &load_program(std::string code, std::string name);
-    void execute_program(std::string name);
     void execute_code(std::string code);
   private:
+    sp<scope> sp_user_scope;
   };
 }
