@@ -2,4 +2,5 @@
 *gch
 *#
 .#*
-/build/CMakeFiles/*
+/build/*
+!/build/CMakeLists.txt

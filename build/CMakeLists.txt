@@ -1,5 +1,5 @@
 
-SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_STANDARD 17)
 
 PROJECT(masic)
 
@@ -11,6 +11,7 @@ TARGET_SOURCES(
 PUBLIC
 	../src/tests/main.cc
 	../src/tests/dummy.cc
+	../src/tests/test_util_text.cc
 	)
 
 TARGET_INCLUDE_DIRECTORIES(
